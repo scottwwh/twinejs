@@ -48,7 +48,8 @@ const publish = module.exports = {
 	/* Publishes an archive of stories. */
 
 	publishArchive(stories, appInfo) {
-		return stories.reduce(
+		const xml = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>';
+		return xml + stories.reduce(
 			(output, story) => {
 				/* Force publishing even if there is no start point set. */
 
@@ -111,11 +112,15 @@ const publish = module.exports = {
 			`zoom="${escape(story.zoom)}" ` +
 			`format="${escape(story.storyFormat)}" ` +
 			`format-version="${escape(story.storyFormatVersion)}" ` +
-			`options="${escape(formatOptions)}" hidden>` +
+			`options="${escape(formatOptions)}" hidden="hidden">` +
 			`<style role="stylesheet" id="twine-user-stylesheet" ` +
-			`type="text/twine-css">` + story.stylesheet + `</style>` +
+				`type="text/twine-css"><![CDATA[
+					${story.stylesheet}
+				]]></style>` +
 			`<script role="script" id="twine-user-script" ` +
-			`type="text/twine-javascript">` + story.script + `</script>` +
+				`type="text/twine-javascript"><![CDATA[
+					${story.script}
+				]]></script>` +
 			tagData + passageData +
 			`</tw-storydata>`;
 	},
@@ -131,6 +136,8 @@ const publish = module.exports = {
 			`tags="${escape(passage.tags.join(' '))}" ` +
 			`position="${passage.left},${passage.top}" ` +
 			`size="${passage.width},${passage.height}">` +
-			`${escape(passage.text)}</tw-passagedata>`;
+			`<![CDATA[
+				${escape(passage.text)}
+				]]></tw-passagedata>`;
 	}
 };
