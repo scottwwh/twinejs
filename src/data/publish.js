@@ -48,8 +48,7 @@ const publish = module.exports = {
 	/* Publishes an archive of stories. */
 
 	publishArchive(stories, appInfo) {
-		const xml = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>';
-		return xml + stories.reduce(
+		const twStories = stories.reduce(
 			(output, story) => {
 				/* Force publishing even if there is no start point set. */
 
@@ -60,6 +59,8 @@ const publish = module.exports = {
 
 			''
 		);
+		return `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>` +
+						`<tw-archive>${twStories}</tw-archive>`;
 	},
 
 	/*
