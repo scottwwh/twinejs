@@ -59,8 +59,10 @@ const publish = module.exports = {
 
 			''
 		);
-		return `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>` +
-						`<tw-archive>${twStories}</tw-archive>`;
+		return `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+						<tw-archive>
+							${twStories}
+						</tw-archive>`;
 	},
 
 	/*
