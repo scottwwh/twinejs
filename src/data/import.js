@@ -14,8 +14,9 @@ filesystem into local storage, and the app can't begin until it's done.
 /* HTML selectors used to find data in HTML format. */
 
 const selectors =  {
-	passage: 'tw-passage',
+	archive: 'tw-archive',
 	story: 'tw-story',
+	passage: 'tw-passage',
 	script: '[role=script]',
 	stylesheet: '[role=stylesheet]',
 	storyData: 'tw-storydata',
@@ -125,7 +126,26 @@ function domToObject(storyEl, forceLastUpdate) {
 module.exports = (html, lastUpdate) => {
 	let nodes = document.createElement('div');
 
+	// console.log('Is this XML?', html);
+	
+
+	// We need to take a more nuanced approach, since this is stripping actual code from the published story..
+	// var reCdataOpen = /<!\[CDATA\[/gi;
+	// var reCdataClose = /]]>/gi;
+	// html = html.replace(reCdataOpen, "").replace(reCdataClose, "");
+	// console.log('Strip out CDATA');
+
 	nodes.innerHTML = html;
+	console.log(html);
+
+	// This will only be used in the XML archive - holy shit, this is not even necessary!
+	const archive = nodes.querySelectorAll(selectors.archive);
+	if (archive.length) {
+		// nodes = archive;
+		console.log("It's an XML archive, so remove CDATA");
+	} else {
+		console.log("It could be a story, or not?");
+	}
 
 	return Array.from(
 		nodes.querySelectorAll(selectors.storyData)
