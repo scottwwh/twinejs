@@ -2,13 +2,7 @@
 // Works
 const CONTENT_API_URL = `http://localhost:3000`;
 
-// Does not work
-// const CONTENT_API_URL = 'https://twinejs-api.herokuapp.com';
-
-// const url = `${CONTENT_API_URL}/twine/api/v1/archive/${archiveID}`;
-
 // TODO: Update docs, and code to mimic flow in ../file/save.js
-
 function postData(url = '', data = {}) {
   console.log('Save data:', data);
 
