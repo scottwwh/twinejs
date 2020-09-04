@@ -1,7 +1,8 @@
 ## twinejs
 
-by Chris Klimas, Leon Arnott, Daithi O Crualaoich, Ingrid Cheung, Thomas Michael
-Edwards, Micah Fitch, Juhana Leinonen, Michael Savich, and Ross Smith
+by Chris Klimas, Andrew Plotkin, Leon Arnott, Daithi O Crualaoich, Ingrid
+Cheung, Thomas Michael Edwards, Micah Fitch, HiEv, Juhana Leinonen, Michael Savich,
+and Ross Smith
 
 ### SYNOPSIS
 
@@ -11,9 +12,10 @@ This is a port of Twine to a browser and Electron app. See
 The story formats in minified format under `story-formats/` exist in separate
 repositories:
 
+-   [Chapbook](https://github.com/klembot/chapbook)
 -   [Harlowe](https://bitbucket.org/_L_/harlowe)
 -   [Paperthin](https://github.com/klembot/paperthin)
--   [Snowman](https://github.com/klembot/snowman)
+-   [Snowman](https://github.com/videlais/snowman)
 -   [SugarCube](https://bitbucket.org/tmedwards/sugarcube)
 
 ### INSTALL
