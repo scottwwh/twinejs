@@ -1,7 +1,7 @@
 
 // Works
-const CONTENT_API_URL = `http://localhost:3000`;
-// const CONTENT_API_URL = `https://twinejs-api.herokuapp.com`;
+// const CONTENT_API_URL = `http://localhost:3000`;
+const CONTENT_API_URL = `https://twinejs-api.herokuapp.com`;
 
 // TODO: Update docs, and code to mimic flow in ../file/save.js
 function postData(url = '', data = {}) {
@@ -10,13 +10,13 @@ function postData(url = '', data = {}) {
   // Default options are marked with *
   return fetch(url, {
       method: 'POST', // *GET, POST, PUT, DELETE, etc.
-      // mode: 'cors', // no-cors, cors, *same-origin
+      mode: 'cors', // no-cors, cors, *same-origin
       cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-      // credentials: 'same-origin', // include, *same-origin, omit
+      credentials: 'omit', // include, *same-origin, omit
       headers: {
-          // 'Origin': 'http://localhost:8080', // Client URL
+          'Origin': 'http://localhost:8080', // Client URL
           'Content-Type': 'application/json',
-          // 'Accept': 'application/json'
+          'Accept': 'application/json'
       },
       redirect: 'follow', // manual, *follow, error
       // referrer: 'no-referrer', // no-referrer, *client
