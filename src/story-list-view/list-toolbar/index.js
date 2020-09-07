@@ -52,6 +52,14 @@ module.exports = Vue.extend({
 			});
 		},
 
+		enableButtonsForAPI() {
+			document.body.classList.add('api-vailable');
+			const els = [...document.querySelectorAll('button.block.api')];
+			els.forEach(el => {
+				el.classList.remove('disable');
+			})
+		},
+
 		importFile(e) {
 			new ImportDialog({
 				store: this.$store,
@@ -83,10 +91,6 @@ module.exports = Vue.extend({
 			this.saveArchive(true);
 		},
 
-		saveToAPIButton() {
-			this.$el.querySelector('button.block.api').classList.add('available');
-		},
-
 		showAbout(e) {
 			new AboutDialog({
 				store: this.$store,
@@ -114,7 +118,7 @@ module.exports = Vue.extend({
 		// console.log('created:', this);
 		const available = API.check();
 		available.then(data => {
-			this.saveToAPIButton();
+			this.enableButtonsForAPI();
 		})
 		.catch(err => {
 			let duration = 5000;
@@ -122,7 +126,7 @@ module.exports = Vue.extend({
 				const available = API.check();
 				available.then(data => {
 					console.log('API now available');
-					this.saveToAPIButton();
+					this.enableButtonsForAPI();
 					clearInterval(interval);
 				})
 				.catch(err => {
