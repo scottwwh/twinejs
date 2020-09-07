@@ -10,7 +10,7 @@ const locale = require('../../locale');
 const {prompt} = require('../../dialogs/prompt');
 const {publishArchive} = require('../../data/publish');
 const saveFile = require('../../file/save');
-const {saveByAPI} = require('../../api/save');
+const {API, saveByAPI} = require('../../api/save');
 
 
 module.exports = Vue.extend({
@@ -83,6 +83,10 @@ module.exports = Vue.extend({
 			this.saveArchive(true);
 		},
 
+		saveToAPIButton() {
+			this.$el.querySelector('button.block.api').classList.add('available');
+		},
+
 		showAbout(e) {
 			new AboutDialog({
 				store: this.$store,
@@ -104,6 +108,34 @@ module.exports = Vue.extend({
 		showLocale() {
 			window.location.hash = 'locale';
 		}
+	},
+
+	created() {
+		console.log('created:', this);
+
+		const available = API.check();
+		available.then(data => {
+			this.saveToAPIButton();
+		})
+		.catch(err => {
+			let duration = 5000;
+			let interval = setInterval(() => {
+				const available = API.check();
+				available.then(data => {
+					console.log('API now available');
+					this.saveToAPIButton();
+					clearInterval(interval);
+				})
+				.catch(err => {
+					console.log(`API not available, retry in ${duration/1000}s`);
+				});
+			}, duration);
+		});
+	},
+
+	// Not firing?
+	mounted() {
+		console.log('mounted:', this);
 	},
 
 	components: {

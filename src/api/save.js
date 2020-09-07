@@ -40,7 +40,11 @@ function postData(url = '', data = {}) {
   });
 }
 
-function getData(url = '') {
+function getData(url = '', useJson = true) {
+
+  // Accounting for /api/health which returns text/html
+  const contentType = useJson ? 'application/json' : 'text/html' ;
+
   // Default options are marked with *
   return fetch(url, {
       method: 'GET', // *GET, POST, PUT, DELETE, etc.
@@ -48,13 +52,61 @@ function getData(url = '') {
       cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
       // credentials: 'same-origin', // include, *same-origin, omit
       headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': contentType,
       },
       redirect: 'follow', // manual, *follow, error
       referrer: 'no-referrer', // no-referrer, *client
       // body: JSON.stringify(data), // body data type must match "Content-Type" header
   })
-  .then(response => response.json()); // parses JSON response into native Javascript objects
+  .then(response => {
+    if (response.status == 200) {
+      if (useJson) {
+        return response.json() // parses JSON response into native Javascript objects
+      } else {
+        return response.text();
+      }  
+    } else {
+      throw 'Unhandled HTTP status:', response.status;
+    }
+  })
+  .catch(err => {
+    throw err;
+  });
+}
+
+/**
+ * This should ideally be a class so I can track most recent succcess
+ * and manage exponential backoff if needed
+ */
+const API = {
+  available: false,
+
+  check: async () => {
+    const duration = 5000;
+    return apiHealth()
+      .then(data => {
+        return Promise.resolve(data); // API is initialized
+      })
+      .catch(err => {
+        return Promise.reject(err); // API is not initialized or available
+      });
+  }
+}
+
+const apiHealth = () => {
+
+	const url = `${CONTENT_API_URL}/api/health`;
+	return getData(url, false)
+		.then(data => {
+      if (data === 'OK') {
+        return Promise.resolve(true);
+      } else {
+        return Promise.reject(false);
+      }
+    })
+		.catch(err => {
+      throw err;
+    });
 }
 
 const loadByAPI = (archive, filename, success, failure) => {
@@ -68,11 +120,8 @@ const loadByAPI = (archive, filename, success, failure) => {
       } else {
         return Promise.reject(data);
       }
-
-    }) // JSON-string from `response.json()` call
+    })
 		.catch(err => console.error(err));
-
-  // return Promise.resolve('funkyar!');
 }
 
 const saveByAPI = (archive, filename, success, failure) => {
@@ -122,4 +171,5 @@ const saveByAPI = (archive, filename, success, failure) => {
 module.exports = {
   loadByAPI,
   saveByAPI,
+  API
 }
