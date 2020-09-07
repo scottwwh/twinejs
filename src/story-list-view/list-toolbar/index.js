@@ -53,7 +53,7 @@ module.exports = Vue.extend({
 		},
 
 		enableButtonsForAPI() {
-			document.body.classList.add('api-vailable');
+			document.body.classList.add('api-available');
 			const els = [...document.querySelectorAll('button.block.api')];
 			els.forEach(el => {
 				el.classList.remove('disable');
@@ -115,7 +115,6 @@ module.exports = Vue.extend({
 	},
 
 	created() {
-		// console.log('created:', this);
 		const available = API.check();
 		available.then(data => {
 			this.enableButtonsForAPI();
@@ -131,6 +130,8 @@ module.exports = Vue.extend({
 					console.log('API now available');
 					this.enableButtonsForAPI();
 					clearInterval(interval);
+
+					// TODO: Start new interval checking every 60 seconds
 				})
 				.catch(err => {
 					console.log(errorMsg);
