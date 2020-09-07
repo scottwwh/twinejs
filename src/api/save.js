@@ -118,10 +118,15 @@ const loadByAPI = (archive, filename, success, failure) => {
         console.log('Loaded data..');
         return Promise.resolve(data.data);
       } else {
+        alert('Could not load data!');
         return Promise.reject(data);
       }
     })
-		.catch(err => console.error(err));
+		.catch(err => {
+      // Resolve the promise to work with existing client code
+      alert('Could not load from API, try again later');
+      return Promise.resolve();
+    });
 }
 
 const saveByAPI = (archive, filename, success, failure) => {
@@ -145,7 +150,9 @@ const saveByAPI = (archive, filename, success, failure) => {
           } else {
             msg.push('No local changes to save.');
           }
-    
+
+          // TODO: Need to figure out how to automatically synchronize updates when this is encountered,
+          // as this is a bit awkward..
           if (data.changes.remote) {
             msg.push('Found uptream changes!')
             alert('Upstream changes found, please Import From File > Load From API')

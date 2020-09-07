@@ -121,7 +121,10 @@ module.exports = Vue.extend({
 			this.enableButtonsForAPI();
 		})
 		.catch(err => {
-			let duration = 5000;
+			const duration = 5000;
+			const errorMsg = `API not available, retry in ${duration/1000}s`;
+			console.log(errorMsg);
+
 			let interval = setInterval(() => {
 				const available = API.check();
 				available.then(data => {
@@ -130,7 +133,7 @@ module.exports = Vue.extend({
 					clearInterval(interval);
 				})
 				.catch(err => {
-					console.log(`API not available, retry in ${duration/1000}s`);
+					console.log(errorMsg);
 				});
 			}, duration);
 		});
