@@ -111,8 +111,7 @@ module.exports = Vue.extend({
 	},
 
 	created() {
-		console.log('created:', this);
-
+		// console.log('created:', this);
 		const available = API.check();
 		available.then(data => {
 			this.saveToAPIButton();
@@ -131,11 +130,6 @@ module.exports = Vue.extend({
 				});
 			}, duration);
 		});
-	},
-
-	// Not firing?
-	mounted() {
-		console.log('mounted:', this);
 	},
 
 	components: {

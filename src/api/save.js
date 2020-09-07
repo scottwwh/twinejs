@@ -81,7 +81,7 @@ function getData(url = '', useJson = true) {
 const API = {
   available: false,
 
-  check: async () => {
+  check: () => {
     const duration = 5000;
     return apiHealth()
       .then(data => {
