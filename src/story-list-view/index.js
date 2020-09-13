@@ -73,6 +73,13 @@ module.exports = Vue.extend({
 			*/
 
 			if (this.stories.length === 0) {
+				// alert('no stories!');
+				// console.log('Initialize async story load once API connection is established');
+
+				// Ref: https://stackoverflow.com/a/50343133/351695
+				// c2method: function(){
+					// this.$root.$emit('import') //like this
+				//    },
 				return this.stories;
 			}
 

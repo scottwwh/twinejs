@@ -30,6 +30,10 @@
 
 	<template v-if="status === 'choosing'">
 		<p>
+			<strong>You are importing {{ toImport.length }} stories in total: {{ toImport.length - dupeNames.length }} new and {{ dupeNames.length }} duplicate!</strong>
+		</p>
+
+		<p>
 		{{ 'Some stories you are importing already exist in your library. Please choose which to replace. Any other stories in your file will be imported as well.' | say }}
 		</p>
 
