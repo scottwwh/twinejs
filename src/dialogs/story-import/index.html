@@ -10,7 +10,9 @@
 			<input type="file" v-el:import-file @change="import($els.importFile.files[0])">
 		</p>
 
-		<p><button @click="import()">Load from API</button></p>
+		<p><button class="api disable" @click="import()">
+			<i class="fa fa-upload"></i> {{'Load from API' | say}}
+		</button></p>
 
 		<div class="buttons" v-if="!working">
 			<button class="subtle" @click="close">

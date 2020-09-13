@@ -10,7 +10,7 @@ const locale = require('../../locale');
 const {prompt} = require('../../dialogs/prompt');
 const {publishArchive} = require('../../data/publish');
 const saveFile = require('../../file/save');
-const {saveByAPI} = require('../../api/save');
+const {API, saveByAPI} = require('../../api/save');
 
 
 module.exports = Vue.extend({
@@ -50,6 +50,14 @@ module.exports = Vue.extend({
 					);
 				}, 300);
 			});
+		},
+
+		enableButtonsForAPI() {
+			document.body.classList.add('api-available');
+			const els = [...document.querySelectorAll('button.block.api')];
+			els.forEach(el => {
+				el.classList.remove('disable');
+			})
 		},
 
 		importFile(e) {
@@ -104,6 +112,32 @@ module.exports = Vue.extend({
 		showLocale() {
 			window.location.hash = 'locale';
 		}
+	},
+
+	created() {
+		const available = API.check();
+		available.then(data => {
+			this.enableButtonsForAPI();
+		})
+		.catch(err => {
+			const duration = 5000;
+			const errorMsg = `API not available, retry in ${duration/1000}s`;
+			console.log(errorMsg);
+
+			let interval = setInterval(() => {
+				const available = API.check();
+				available.then(data => {
+					console.log('API now available');
+					this.enableButtonsForAPI();
+					clearInterval(interval);
+
+					// TODO: Start new interval checking every 60 seconds
+				})
+				.catch(err => {
+					console.log(errorMsg);
+				});
+			}, duration);
+		});
 	},
 
 	components: {

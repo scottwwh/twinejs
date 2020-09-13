@@ -8,18 +8,18 @@
 			</button>
 		</li>
 		<li>
-			<button class="block" @click="importFile" title="{{ 'Import a published story or Twine archive' | say }}">
-				<i class="fa fa-upload"></i> {{'Import From File' | say}}
+			<button class="block api" @click="importFile" title="{{ 'Import a published story or Twine archive' | say }}">
+				<i class="fa fa-upload"></i> {{'Import (API/file)' | say}}
+			</button>
+		</li>
+		<li>
+			<button class="block api disable" @click="saveToAPI" title="{{'Save all stories to API' | say }}">
+				<i class="fa fa-briefcase"></i> {{ 'Archive (API)' | say}}
 			</button>
 		</li>
 		<li>
 			<button class="block" @click="saveToFile" title="{{'Save all stories to a Twine archive file' | say }}">
 				<i class="fa fa-briefcase"></i> {{ 'Archive (file)' | say}}
-			</button>
-		</li>
-		<li>
-			<button class="block" @click="saveToAPI" title="{{'Save all stories to API' | say }}">
-				<i class="fa fa-briefcase"></i> {{ 'Archive (API)' | say}}
 			</button>
 		</li>
 		<li>

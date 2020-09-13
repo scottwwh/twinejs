@@ -4,6 +4,7 @@ const HtmlPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const PoPlugin = require('./webpack/po-webpack-plugin');
 const Autoprefixer = require('less-plugin-autoprefix');
+const Dotenv = require('dotenv-webpack');
 const package = require('./package.json');
 
 const isRelease = process.env.NODE_ENV === 'production';
@@ -92,6 +93,9 @@ const config = (module.exports = {
 				format: 'jed1.x',
 				domain: 'messages'
 			}
+		}),
+		new Dotenv({
+			path: isRelease ? './.env' : './.env.dev'
 		})
 	],
 	devServer: {

@@ -114,6 +114,9 @@ module.exports = Vue.extend({
 					this.toImport.forEach(story => this.importStory(story));
 					this.close();
 				}
+			})
+			.catch(err => {
+				console.log(err);
 			});
 		},
 
