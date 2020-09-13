@@ -1,7 +1,5 @@
 
-// Works
-// const CONTENT_API_URL = `http://localhost:3000`;
-const CONTENT_API_URL = `https://twinejs-api.herokuapp.com`;
+const CONTENT_API_URL = process.env.API_HOSTNAME;
 
 // TODO: Update docs, and code to mimic flow in ../file/save.js
 function postData(url = '', data = {}) {
