@@ -2,6 +2,11 @@
 	<span slot="title">{{ 'Import From File' | say }}</span>
 
 	<template v-if="status === 'waiting'">
+
+		<p v-if="existingStories.length === 0">
+			Hello! Click on <strong>Load from API</strong> to see what people are working on!
+		</p>
+
 		<p>
 			<label for="importUpload">
 				{{ 'Import this file:' | say }}
@@ -29,6 +34,10 @@
 	</template>
 
 	<template v-if="status === 'choosing'">
+		<p>
+			<strong>You are importing {{ toImport.length }} stories in total: {{ toImport.length - dupeNames.length }} new and {{ dupeNames.length }} duplicate!</strong>
+		</p>
+
 		<p>
 		{{ 'Some stories you are importing already exist in your library. Please choose which to replace. Any other stories in your file will be imported as well.' | say }}
 		</p>

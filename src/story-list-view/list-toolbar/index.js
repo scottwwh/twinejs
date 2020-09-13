@@ -61,6 +61,7 @@ module.exports = Vue.extend({
 		},
 
 		importFile(e) {
+			console.log(e);
 			new ImportDialog({
 				store: this.$store,
 				data: {origin: e.target}
@@ -118,6 +119,18 @@ module.exports = Vue.extend({
 		const available = API.check();
 		available.then(data => {
 			this.enableButtonsForAPI();
+
+			if (this.existingStories.length === 0) {
+				console.log('We have no stories - open the dialog!');
+
+				// Method requires an event target?
+				const el = this.$el.querySelector('button.block.api');
+				const e = { target: el };
+				this.importFile(e);
+			} else {
+				// Check API for updates or available number of stories?
+				console.log(`We already have ${this.existingStories.length} stories loaded - don't open dialog`);
+			}
 		})
 		.catch(err => {
 			const duration = 5000;
@@ -130,6 +143,8 @@ module.exports = Vue.extend({
 					console.log('API now available');
 					this.enableButtonsForAPI();
 					clearInterval(interval);
+					// console.log('hello!', this);
+					// this.importFile();
 
 					// TODO: Start new interval checking every 60 seconds
 				})
@@ -138,6 +153,17 @@ module.exports = Vue.extend({
 				});
 			}, duration);
 		});
+
+		// Should be added within mounted (??) but not available within Vue v1
+		// Ref: https://stackoverflow.com/a/50343133/351695
+		//
+		// console.log('we are created!');
+		// this.$root.$on('import', () => {
+		// 	console.log('hi hi hi');
+
+        //     // your code goes here
+        //     this.importFile();
+        // });
 	},
 
 	components: {

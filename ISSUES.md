@@ -6,4 +6,4 @@ Issues that I did not find here: https://github.com/klembot/twinejs/issues
 - Stories do not open with correct IFID in browser?
     - Code: /src/data/store/story.js
     - Issue: https://github.com/klembot/twinejs/issues/724
-- Import dialog does not make it clear whether any _new_ stories will be added
+- Import dialog does not make it clear how many stories will be imported in total (e.g. new + existing)
