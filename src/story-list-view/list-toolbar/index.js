@@ -156,13 +156,14 @@ module.exports = Vue.extend({
 
 		// Should be added within mounted (??) but not available within Vue v1
 		// Ref: https://stackoverflow.com/a/50343133/351695
-		console.log('we are created!');
-		this.$root.$on('import', () => {
-			console.log('hi hi hi');
+		//
+		// console.log('we are created!');
+		// this.$root.$on('import', () => {
+		// 	console.log('hi hi hi');
 
-            // your code goes here
-            this.importFile();
-        });
+        //     // your code goes here
+        //     this.importFile();
+        // });
 	},
 
 	components: {

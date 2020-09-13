@@ -2,6 +2,11 @@
 	<span slot="title">{{ 'Import From File' | say }}</span>
 
 	<template v-if="status === 'waiting'">
+
+		<p v-if="existingStories.length === 0">
+			Hello! Click on <strong>Load from API</strong> to see what people are working on!
+		</p>
+
 		<p>
 			<label for="importUpload">
 				{{ 'Import this file:' | say }}
