@@ -7,3 +7,4 @@ Issues that I did not find here: https://github.com/klembot/twinejs/issues
     - Code: /src/data/store/story.js
     - Issue: https://github.com/klembot/twinejs/issues/724
 - Import dialog does not make it clear how many stories will be imported in total (e.g. new + existing)
+- Cannot select from available tags in a story

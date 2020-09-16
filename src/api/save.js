@@ -40,7 +40,7 @@ function postData(url = '', data = {}) {
 
 function getData(url = '', useJson = true) {
 
-  // Accounting for /api/health which returns text/html
+  // Accounting for /api/v0/health which returns text/html
   const contentType = useJson ? 'application/json' : 'text/html' ;
 
   // Default options are marked with *
@@ -93,7 +93,7 @@ const API = {
 
 const apiHealth = () => {
 
-	const url = `${CONTENT_API_URL}/api/health`;
+	const url = `${CONTENT_API_URL}/api/v0/health`;
 	return getData(url, false)
 		.then(data => {
       if (data === 'OK') {
@@ -109,7 +109,7 @@ const apiHealth = () => {
 
 const loadByAPI = (archive, filename, success, failure) => {
 	// Example GET method implementation:
-	const url = `${CONTENT_API_URL}/archive/raw`;
+	const url = `${CONTENT_API_URL}/api/v0/archive/raw`;
 	return getData(url)
 		.then(data => {
       if (data.status === 'ACK') {
@@ -134,7 +134,7 @@ const saveByAPI = (archive, filename, success, failure) => {
 	};
 
 	// Example POST method implementation:
-  const url = `${CONTENT_API_URL}/archive`;
+  const url = `${CONTENT_API_URL}/api/v0/archive`;
   
   try {
     postData(url, data)
