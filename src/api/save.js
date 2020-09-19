@@ -10,9 +10,10 @@ function postData(url = '', data = {}) {
       method: 'POST', // *GET, POST, PUT, DELETE, etc.
       mode: 'cors', // no-cors, cors, *same-origin
       cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-      credentials: 'omit', // include, *same-origin, omit
+      credentials: 'include', // include, *same-origin, omit
       headers: {
           'Origin': 'http://localhost:8080', // Client URL
+          'Access-Control-Allow-Credentials': 'true',
           'Content-Type': 'application/json',
           'Accept': 'application/json'
       },
@@ -46,11 +47,12 @@ function getData(url = '', useJson = true) {
   // Default options are marked with *
   return fetch(url, {
       method: 'GET', // *GET, POST, PUT, DELETE, etc.
-      // mode: 'cors', // no-cors, cors, *same-origin
+      mode: 'cors', // no-cors, cors, *same-origin
       cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-      // credentials: 'same-origin', // include, *same-origin, omit
+      credentials: 'include', // include, *same-origin, omit
       headers: {
           'Content-Type': contentType,
+          'Access-Control-Allow-Credentials': 'true'
       },
       redirect: 'follow', // manual, *follow, error
       referrer: 'no-referrer', // no-referrer, *client
